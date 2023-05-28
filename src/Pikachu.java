@@ -1,3 +1,4 @@
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -10,6 +11,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridLayout;
 
+import java.awt.FlowLayout; 
 import java.awt.event.ActionEvent; 
 import java.awt.event.ActionListener; 
 import javax.swing.JButton; 
@@ -27,10 +29,11 @@ import javax.swing.JOptionPane;
 import java.util.Random;
 
 import java.awt.Color;
+import javax.swing.JToggleButton;
 
 
 public class Pikachu extends JFrame {
-	public JButton tieptuc;
+	public JButton continuebButton;
 	public int A[] = new int [72];
 	public JButton btnimg[] = new JButton[72];
 	
@@ -42,7 +45,7 @@ public class Pikachu extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public int flag = 0, bodem, map = 0;
+	public int flag = 0, count, map = 0;
 	public int click1, click2;
 	public JButton b1, b2;
 	public Border slBorder = new LineBorder(Color.red, 3);
@@ -52,7 +55,7 @@ public class Pikachu extends JFrame {
 	public long score = 0;
 	
 	public JLabel scorelabel = new JLabel("Score = "+score);
-	public JLabel timelabel = new JLabel("Time = "+bodem);
+	public JLabel timelabel = new JLabel("Time = "+count);
 	public JLabel maplabel = new JLabel("Map = "+score);
 	
 	Random ran = new Random();
@@ -120,17 +123,17 @@ public class Pikachu extends JFrame {
 				map = 0;
 				scorelabel.setText("Score = "+score);
 				maplabel.setText("Map = "+(map+1));
-				bodem = 120;
+				count = 120;
 				checkRandom();
 				panel.removeAll();
 				gamemap = 0;
 				ActionListener aTime = new ActionListener() {
 				      public void actionPerformed(ActionEvent e) {
-				    	  --bodem;
-				    	   timelabel.setText("Time = "+bodem);
-				    	   if(bodem == 0)
+				    	  --count;
+				    	   timelabel.setText("Time = "+count);
+				    	   if(count == 0)
 				    	   {
-				    		   JOptionPane.showMessageDialog(null, "Het gio ban thua roi");
+				    		   JOptionPane.showMessageDialog(null, "Game Over");
 				    		   time.stop();
 				    		   panel.removeAll();
 				    	   }
@@ -270,10 +273,10 @@ public class Pikachu extends JFrame {
 								gamemap = 0;
 								return;
 							}
-							score = score + 500 + (10*bodem);
+							score = score + 500 + (10*count);
 							scorelabel.setText("Score = "+score);
 							maplabel.setText("Map = "+(map+1));
-							bodem = 120 - (map * 20);
+							count = 120 - (map * 20);
 							gamemap = 0;
 							panel.removeAll();
 							checkRandom();
@@ -353,7 +356,7 @@ public class Pikachu extends JFrame {
 	
 		}
 
-	});//ket thuc ham action
+	});//end action function
 		mnFile.add(mntmNewGame);
 		final JMenuItem mntmExitGame = new JMenuItem(" Exit");
 		mntmExitGame.addActionListener(new ActionListener() {
@@ -387,9 +390,9 @@ public class Pikachu extends JFrame {
 		for(int i = 0; i < 16; i++)
 		{
 				
-			if(DemPT(i) % 2 != 0)
+			if(CountPT(i) % 2 != 0)
 			{
-				Chuyen(i);
+				move(i);
 					
 					
 			}	
@@ -400,7 +403,7 @@ public class Pikachu extends JFrame {
 	
 	
 
-	public int DemPT(int m)
+	public int CountPT(int m)
 	{
 		int d=0;
 		for(int i=0;i<60;i++)
@@ -415,7 +418,7 @@ public class Pikachu extends JFrame {
 	
 	
 	
-	public void Chuyen(int m)
+	public void move(int m)
 	{
 		for(int i = 0; i < 60; i++)
 		{
@@ -456,8 +459,3 @@ class ImagePanel extends JPanel {
 	}
 
 	}
-
-
-
-
-
